@@ -82,13 +82,6 @@ for k = 1:size(groups,2) % all groups
     for f = 1:size(dff_allsamples_filtered,1)
         dff_allsamples_filtered_min(f,:) = mean(reshape(dff_allsamples_filtered(f,1:8100),15,[]),1);
     end
-%     f_raster = figure();
-%     [xPoints, yPoints] = plotSpikeRaster(logical(dff_allsamples_filtered_min));
-%     f_raster.FontSize = 13;
-%     XLabel('Time bin by second');
-%     YLabel('Number of neurons');
-
-
 end
 emptyNeu = sum(dff_allsamples,2);
 [row,~] = find(emptyNeu > 0);
@@ -97,9 +90,6 @@ dff_allsamples_filtered_min = [];
 for f = 1:size(dff_allsamples_filtered,1)
     dff_allsamples_filtered_min(f,:) = mean(reshape(dff_allsamples_filtered(f,1:8100),15,[]),1);
 end
-% [xPoints, yPoints] = plotSpikeRaster(logical(dff_allsamples_filtered_min)); hold on;
-% LineFormat.Color = [0 0 0.8];
-
 
 norm_DMSO = normalize(dff_group{1},'range',[0 1]);
 norm_JNJ = normalize(dff_group{2},'range',[0 1]);
@@ -279,69 +269,6 @@ hedgeg_stats_apaired{2}=mes(paired_groupA_amp,paired_groupB_amp,'mdbysd','isDep'
 
 %% Graphs
 % TAK [0.6 0.4 1]; DMSO [0 0 1]; JNJ [0.4 0.8 0]; MK [1 0.5 0.2]
-
-%%% TAK JNJ
-
-% freq_matrix = [All_GSumF{1};All_GSumF{3};All_GSumF{2}]; % CHANGE group and row below
-% empty_identifiers = [ones(length(All_GSumF{1}),1)*1; ones(length(All_GSumF{3}),1)*2; ones(length(All_GSumF{2}),1)*3];
-% identifiers_name = {'DMSO','TAK','JNJ'}; % CHANGE name
-% identifiers = identifiers_name(empty_identifiers);
-% f_freq = figure('Name','Frequency by minute JNJ and TAK','Visible',visibility);clf
-% vs = violinplot(freq_matrix,identifiers', ...
-%     'ViolinColor',[1 0.5 0.2; 0.6 0.4 1; 0.4 0.8 0], ... % CHANGE color
-%     'HalfViolin', 'full', ...
-%     'ShowMean', true, ...
-%     'EdgeColor',[0 0 0], ...
-%     'LineWidth', 12, ...
-%     'ViolinAlpha',0.1, ...
-%     'BoxColor',[0 0 0], ...
-%     'MedianMarkerSize', 100,...
-%     'Width',0.25, ...
-%     'DataStyle','none', ...
-%     'LineWidth',1, ...
-%     'BoxColor', [0 0 0], ...
-%     'ShowMedian',true, ...
-%     'QuartileStyle','shadow'); hold on
-% ylabel('Mean Frequency (per min)', 'FontSize', 14);
-% yticks([0:0.2:1]);
-% xticks([1 2 3]);
-% ylim([0 1.1]);
-% set(gca,'FontSize',12);
-% % add significance test result
-% plot([1,2],[0.9 0.9],'LineWidth',1.5,'Color',[0 0 0]);
-% text([1.5],[0.95],'* p=.0371','FontSize',14);
-% 
-% amp_matrix = [All_GSumA{1};All_GSumA{3};All_GSumA{2}]; % CHANGE group and row below
-% empty_identifiers = [ones(length(All_GSumA{1}),1)*1; ones(length(All_GSumA{3}),1)*2; ones(length(All_GSumA{2}),1)*3];
-% identifiers_name = {'DMSO','TAK','JNJ'}; % CHANGE name
-% identifiers = identifiers_name(empty_identifiers);
-% f_amp = figure('Name','Amplitude by minute JNJ and TAK','Visible',visibility);clf
-% vs = violinplot(amp_matrix,identifiers', ...
-%     'ViolinColor',[0 0 1; 0.6 0.4 1; 0.4 0.8 0], ... % CHANGE color
-%     'HalfViolin', 'full', ...
-%     'ShowMean', true, ...
-%     'EdgeColor',[0 0 0], ...
-%     'LineWidth', 12, ...
-%     'ViolinAlpha',0.1, ...
-%     'BoxColor',[0 0 0], ...
-%     'MedianMarkerSize', 100,...
-%     'Width',0.25, ...
-%     'DataStyle','none', ...
-%     'LineWidth',1, ...
-%     'BoxColor', [0 0 0], ...
-%     'ShowMedian',true, ...
-%     'QuartileStyle','shadow'); hold on
-% ylabel('Mean Amplitude (per min)', 'FontSize', 14);
-% set(gca, 'XTickLabel', get(gca, 'XTickLabel'), 'FontSize', 14);
-% set(gca, 'YTickLabel', get(gca, 'YTickLabel'), 'FontSize', 14);
-% ylim([0 40]);
-% xticks([1 2 3]);
-% yticks([1:5:40]);
-% set(gca,'FontSize',12);
-% % add significance test result
-% plot([1,2],[35 35],'LineWidth',1.5,'Color',[0 0 0]);
-% text([1.5],[35.8],'* p=.0131','FontSize',14);
-
 uniformColor = [0 0 0.8];
 
 % JNJ v TAK
@@ -588,7 +515,6 @@ ax.Box = "off";
 ax.TickLength = [0 0];
 pbaspect([0.5 0.7 0.7]);
 
-
 if save_mode == 1 
     violin_path = '/Users/kowteckfong/Desktop/MP InVivoCaImaging/IVCI Images & Videos/Graphs/';
     violin_freq = fullfile(violin_path,'box freq MK TAK JNJ.jpeg') % CHANGE name
@@ -598,8 +524,3 @@ if save_mode == 1
 elseif save_mode == 0
     disp('Not saving');
 end
-
-% freq_table = table(identifiers',freq_matrix, 'VariableNames',{'Identifiers','Values'});
-% estimation_path = '/Users/kowteckfong/Desktop/MP InVivoCaImaging/IVCI Images & Videos/Graphs/';
-% estimation_name = fullfile(estimation_path, 'freq_table.csv');
-% writetable(freq_table,estimation_name);
