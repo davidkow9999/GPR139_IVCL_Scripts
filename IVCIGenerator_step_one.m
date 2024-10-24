@@ -6,6 +6,7 @@ clear all;
 % 1. Calculate Delta F/F0
 % 2. Calculate peaks for frequency
 
+%% option 1 to extract files
 % [file,path] = uigetfile('*.mat')
 % currentFolder = split(path,"/");
 % reverseFolder = flip(currentFolder);
@@ -16,6 +17,7 @@ clear all;
 % directoryPath = '/Users/kowteckfong/Desktop/MP InVivoCaImaging/IVCI Images & Videos/Raw dff zscore/';
 % matFiles = dir(fullfile(directoryPath, '*raw dff zscore.mat'));
 
+%% option 2 to extract files
 cd '/Volumes/DavidSSD/1 Stacked and suite2p data/';
 path = '/Volumes/DavidSSD/1 Stacked and suite2p data/18 Oct 23/'; %% CHANGE folder
 files = fullfile(path,'18Oct JNJ1.6 Idle','/suite2p/plane0/Fall.mat'); %% CHANGE trial
@@ -58,7 +60,7 @@ for i = 1:size(rawF,1)
 ZRawFluo(i,:) = (rawF(i,:) - rawF_baseline) ./ rawF_baseline;
 end
 
-% figure();plot(ZRawFluo)
+% figure();plot(ZRawFluo) %% enable to view the fluorescence in time series
 % figure();plot(mean(ZRawFluo,1))
 
 %% z-score
